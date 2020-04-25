@@ -8,6 +8,7 @@ import auth from './Middleware/Auth'
 import indexRouter from './routes';
 import authController from './routes/authController';
 import tasksRouter from './routes/taskController';
+import timeRecordController from "./routes/timeRecordController";
 
 const uriTemplate = "mongodb+srv://TTimeUser:<password>@cluster0-jhmtv.mongodb.net/TTime?retryWrites=true&w=majority";
 
@@ -36,6 +37,7 @@ app.use(cookieParser());
 app.use('/', indexRouter);
 app.use('/auth', authController);
 app.use('/tasks', auth, tasksRouter);
+app.use('/timeRecords', auth, timeRecordController)
 
 
 

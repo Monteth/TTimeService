@@ -21,9 +21,7 @@ const login = async ({email, password}) => {
 
 const generateAuthToken = (user) => {
     const {_id, accessLevels} = user;
-    const token = jwt.sign({ _id, accessLevels }, config.get('myprivatekey')); //get the private key from the config file -> environment variable
-    console.log(token)
-    return token;
+    return jwt.sign({id: _id, accessLevels}, config.get('myprivatekey'));
 }
 
 function validateUser(user) {

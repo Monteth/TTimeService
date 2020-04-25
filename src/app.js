@@ -10,14 +10,14 @@ import authController from './routes/authController';
 import tasksRouter from './routes/taskController';
 import timeRecordController from "./routes/timeRecordController";
 
-const uriTemplate = "mongodb+srv://TTimeUser:<password>@cluster0-jhmtv.mongodb.net/TTime?retryWrites=true&w=majority";
+const uriTemplate = "mongodb+srv://<user>:<password>@cluster0-jhmtv.mongodb.net/TTime?retryWrites=true&w=majority";
 
 if (!config.get("myprivatekey")) {
     console.error("FATAL ERROR: myprivatekey is not defined.");
     process.exit(1);
 }
 
-const uri = uriTemplate.replace("<password>", config.get("mongodbpass"))
+const uri = uriTemplate.replace("<password>", config.get("mongodbpass")).replace("<user>", config.get("mongodbuser"))
 
 const app = express();
 

@@ -3,12 +3,12 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import mongoose from 'mongoose'
 import config from 'config'
-import auth from './Middleware/Auth'
+import auth from './Controllers/AuthController'
 
-import indexRouter from './routes';
-import authController from './routes/authController';
-import tasksRouter from './routes/taskController';
-import timeRecordController from "./routes/timeRecordController";
+import indexRouter from './Controllers/IndexController';
+import authController from './Controllers/AuthController';
+import tasksRouter from './Controllers/TaskController';
+import timeRecordController from "./Controllers/TimeRecordController";
 
 const uriTemplate = "mongodb+srv://<user>:<password>@cluster0-jhmtv.mongodb.net/TTime?retryWrites=true&w=majority";
 

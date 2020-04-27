@@ -3,7 +3,7 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import mongoose from 'mongoose'
 import config from 'config'
-import auth from './Controllers/AuthController'
+import auth from './Controllers/AuthMiddleware'
 
 import indexRouter from './Controllers/IndexController';
 import authController from './Controllers/AuthController';

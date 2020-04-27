@@ -1,20 +1,19 @@
-import jwt from "jsonwebtoken";
-import config from "config";
-import AccessLevels from "../Model/Users/AccessLevels";
+import express from 'express';
+import UserService from "../Model/Users/UserService";
+const AuthController = express.Router();
 
-export default function (req, res, next) {
-    const token = (req.headers["authorization"] || '').slice(7);
-    if (token.length === 0) {
-        req.user = {accessLevels: [AccessLevels.GUEST]}
-        next()
-    } else {
-        jwt.verify(token, config.get("myprivatekey"), (err, decoded) => {
-            if (err) {
-                res.status(400).json({errors: [{message: "Invalid token."}]});
-            } else {
-                req.user = decoded
-                next()
-            }
-        })
-    }
-};
+const handleData = (data, next, res) => data.error
+    ? next(data.errors)
+    : res.json(data.data);
+
+AuthController.post('/register', async function(req, res, next) {
+    const data = await UserService.register(req.body)
+    handleData(data, next, res)
+});
+
+AuthController.post('/login', async function(req, res, next) {
+    const data = await UserService.login(req.body)
+    handleData(data, next, res)
+});
+
+export default AuthController;

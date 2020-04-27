@@ -27,4 +27,24 @@ TimeRecordController.post('/', async (req, res, next) => {
     handleData({data, next, res})
 })
 
+TimeRecordController.put('/:id', async (req, res, next) => {
+    const hasAccessLvl = generateHasAccessLvl(AccessLevels.CLIENT)
+    const success = () => TimeRecordService.editTimeRecord({timeRecordInput: req.body, id: req.params.id})
+    const data = hasAccessLvl(req)
+        ? await success()
+        : accessError()
+
+    handleData({data, next, res})
+})
+
+TimeRecordController.delete('/:id', async (req, res, next) => {
+    const hasAccessLvl = generateHasAccessLvl(AccessLevels.CLIENT)
+    const success = () => TimeRecordService.removeTimeRecord(req.params.id)
+    const data = hasAccessLvl(req)
+        ? await success()
+        : accessError()
+
+    handleData({data, next, res})
+})
+
 export default TimeRecordController;

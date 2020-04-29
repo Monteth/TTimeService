@@ -6,13 +6,19 @@ const prepareResponse = promise => promise
 
 const listTimeRecords = () => prepareResponse(TimeRecord.find())
 
+const listUserTimeRecords = (userID) => prepareResponse(TimeRecord.find({owner: userID}))
+
 const createTimeRecord = (timeRecordInput) => prepareResponse(TimeRecord.create(timeRecordInput))
 
 const removeTimeRecord = (id) => prepareResponse(TimeRecord.findOneAndRemove({_id: id}))
 
-const editTimeRecord = ({timeRecordInput, id}) => prepareResponse(TimeRecord.findOneAndUpdate({_id: id}, timeRecordInput, {new: true}))
+const removeUserTimeRecord = ({timeRecordID, userID}) => prepareResponse(TimeRecord.findOneAndRemove({_id: timeRecordID, owner: userID}))
+
+const editUserTimeRecord = ({timeRecordInput, timeRecordID, userID}) => prepareResponse(TimeRecord.findOneAndUpdate({_id: timeRecordID, owner: userID}, timeRecordInput, {new: true}))
+
+const editTimeRecord = ({timeRecordInput, timeRecordID}) => prepareResponse(TimeRecord.findOneAndUpdate({_id: timeRecordID}, timeRecordInput, {new: true}))
 
 const dbModelToLogic = ({name, timeElapsed, _id, startDate, endDate}) => ({name, timeElapsed, id: _id, startDate, endDate})
 const dbModelsToLogic = (tasks) => tasks.map(t => dbModelToLogic(t))
 
-export default {listTimeRecords, createTimeRecord, editTimeRecord, removeTimeRecord}
+export default {listTimeRecords, createTimeRecord, editUserTimeRecord, removeTimeRecord, removeUserTimeRecord, editTimeRecord, listUserTimeRecords}

@@ -33,7 +33,7 @@ TimeRecordController.post('/', async (req, res, next) => {
 
 TimeRecordController.put('/:id', async (req, res, next) => {
     const hasAccessLvl = generateHasAccessLvl(AccessLevels.CLIENT)
-    const success = () => TimeRecordService.editTimeRecord({timeRecordInput: req.body, timeRecordID: req.params.id, userID: req.user.id})
+    const success = () => TimeRecordService.editUserTimeRecord({timeRecordInput: req.body, timeRecordID: req.params.id, userID: req.user.id})
     const data = hasAccessLvl(req)
         ? await success()
         : accessError()

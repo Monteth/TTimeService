@@ -11,6 +11,7 @@ const createTimeRecord = (timeRecordInput) => prepareResponse(TimeRecord.create(
 const removeTimeRecord = (id) => prepareResponse(TimeRecord.findOneAndRemove({_id: id}))
 
 const editTimeRecord = ({timeRecordInput, id}) => prepareResponse(TimeRecord.findOneAndUpdate({_id: id}, timeRecordInput, {new: true}))
+const editTimeRecord = ({timeRecordInput, timeRecordID}) => prepareResponse(TimeRecord.findOneAndUpdate({_id: timeRecordID}, timeRecordInput, {new: true}))
 
 const dbModelToLogic = ({name, timeElapsed, _id, startDate, endDate}) => ({name, timeElapsed, id: _id, startDate, endDate})
 const dbModelsToLogic = (tasks) => tasks.map(t => dbModelToLogic(t))

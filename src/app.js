@@ -17,7 +17,7 @@ if (!config.get("myprivatekey")) {
     process.exit(1);
 }
 
-const uri = uriTemplate.replace("<password>", config.get("mongodbpass")).replace("<user>", config.get("mongodbuser"))
+const uri = config.get("dbUri")
 
 const app = express();
 

@@ -9,6 +9,11 @@ import indexRouter from './Controllers/IndexController';
 import authController from './Controllers/AuthController';
 import tasksRouter from './Controllers/TaskController';
 import timeRecordController from "./Controllers/TimeRecordController";
+import cors from 'cors'
+var corsOptions = {
+    origin: '*',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
 
 const uriTemplate = "mongodb+srv://<user>:<password>@cluster0-jhmtv.mongodb.net/TTime?retryWrites=true&w=majority";
 
@@ -20,6 +25,7 @@ if (!config.get("myprivatekey")) {
 const uri = config.get("dbUri")
 
 const app = express();
+app.use(cors(corsOptions))
 
 mongoose
     .connect(uri, {
